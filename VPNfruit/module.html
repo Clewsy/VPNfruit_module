@@ -1,0 +1,41 @@
+<div class="panel panel-default" ng-controller="VPNfruit_controller">
+	<div class="panel-heading">
+		<h3 class="panel-title">VPN script file</h3>
+	</div>
+	<div class="panel-body">
+		<p>Filename of the VPN control script
+		<br />/etc/init.d/<input class="input" type="text" ng-model="inputPath">
+		<br />
+		<br /><button class="btn btn-default" ng-click="savePath()">
+			Save Path
+		</button>
+	</div>
+
+
+	<div class="panel-heading">
+		<h3 class="panel-title">Live VPN Control</h3>
+	</div>
+	<div class="panel-body">
+		<button class="btn btn-default" ng-click="startVPN()">
+			Start
+		</button>
+		<button class="btn btn-default" ng-click="stopVPN()">
+			Stop
+		</button>
+	</div>
+
+	<div class="panel-heading">
+		<h3 class="panel-title">VPN on Boot</h3>
+	</div>
+	<div class="panel-body">
+		<button class="btn btn-default" ng-click="enableVPN()">
+			Enable
+		</button>
+		<button class="btn btn-default" ng-click="disableVPN()">
+			Disable
+		</button>
+	</div>
+
+<div class="well alert-warning" ng-show="message">
+	{{ message }}
+</div>
