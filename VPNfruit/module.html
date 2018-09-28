@@ -3,7 +3,7 @@
 		<h3 class="panel-title">VPN script file</h3>
 	</div>
 	<div class="panel-body">
-		<p>Filename of the VPN control script
+		<p>Filename of the VPN control script:
 		<br />/etc/init.d/<input class="input" type="text" ng-model="inputPath">
 		<br />
 		<br /><button class="btn btn-default" ng-click="savePath()">
@@ -16,24 +16,28 @@
 		<h3 class="panel-title">Live VPN Control</h3>
 	</div>
 	<div class="panel-body">
-		<button class="btn btn-default" ng-click="startVPN()">
+		<button class="btn btn-default" ng-click="startVPN(); getLiveStatus()">
 			Start
 		</button>
-		<button class="btn btn-default" ng-click="stopVPN()">
+		<button class="btn btn-default" ng-click="stopVPN(); getLiveStatus()">
 			Stop
 		</button>
+		<br />
+		<br /><p>Current live status:	{{ liveStatus }}
 	</div>
 
 	<div class="panel-heading">
 		<h3 class="panel-title">VPN on Boot</h3>
 	</div>
 	<div class="panel-body">
-		<button class="btn btn-default" ng-click="enableVPN()">
+		<button class="btn btn-default" ng-click="enableVPN(); getBootStatus()">
 			Enable
 		</button>
-		<button class="btn btn-default" ng-click="disableVPN()">
+		<button class="btn btn-default" ng-click="disableVPN(); getBootStatus()">
 			Disable
 		</button>
+		<br />
+		<br /><p>Current boot status:	{{ bootStatus }}
 	</div>
 
 <div class="well alert-warning" ng-show="message">

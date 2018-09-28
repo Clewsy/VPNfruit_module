@@ -1,6 +1,8 @@
  registerController('VPNfruit_controller', ['$api', '$scope', function($api, $scope){
-	$scope.inputPath = "";
+	$scope.inputPath = "reading";
 	$scope.message = "";
+	$scope.liveStatus = "checking";
+	$scope.bootStatus = "checking";
 
 	$scope.startVPN = (function() {
 		$api.request({
@@ -65,7 +67,7 @@
 	$scope.loadPath = (function() {
 		$api.request({
 			module: 'VPNfruit',
-			action: 'loadPath',
+			action: 'loadPath'
 		}, function(response) {
 			if (response.error === undefined) {
 				$scope.inputPath = response;
@@ -92,6 +94,39 @@
 
 	});
 
+	$scope.getLiveStatus = (function() {
+		$api.request({
+			module: 'VPNfruit',
+			action: 'getLiveStatus'
+		}, function(response) {
+			if (response.error === undefined) {
+				$scope.liveStatus = response;
+			} else {
+				$scope.liveStatus = "status_unknown";
+				$scope.message = response.error;
+			}
+		});
+
+	});
+
+	$scope.getBootStatus = (function() {
+		$api.request({
+			module: 'VPNfruit',
+			action: 'getBootStatus',
+			path: $scope.inputPath
+		}, function(response) {
+			if (response.error === undefined) {
+				$scope.bootStatus = response;
+			} else {
+				$scope.bootStatus = "status_unknown";
+				$scope.message = response.error;
+			}
+		});
+
+	});
+
 	$scope.loadPath();
+	$scope.getLiveStatus();
+	$scope.getBootStatus();
 
 }]);

@@ -23,6 +23,12 @@ class VPNfruit extends Module
 			case 'loadPath' :
 				$this->loadPath();
 				break;
+			case 'getLiveStatus' :
+				$this->getLiveStatus();
+				break;
+			case 'getBootStatus' :
+				$this->getBootStatus();
+				break;
 		}
 	}
 
@@ -30,9 +36,9 @@ class VPNfruit extends Module
 	{
 		if (file_exists("/etc/init.d/".$this->request->path)) {
 			exec("/etc/init.d/".$this->request->path." start");
-			$this->response = "VPN Started";
+			$this->response = "VPN Started.";
 		} else {
-			$this->response = "Error starting VPN (file not found)";
+			$this->response = "Error starting VPN (file not found).";
 		}
 	}
 
@@ -41,9 +47,9 @@ class VPNfruit extends Module
 	{
 		if (file_exists("/etc/init.d/".$this->request->path)) {
 			exec("/etc/init.d/".$this->request->path." stop");
-			$this->response = "VPN Stopped";
+			$this->response = "VPN Stopped.";
 		} else {
-			$this->response = "Error stopping VPN (file not found)";
+			$this->response = "Error stopping VPN (file not found).";
 		}
 	}
 
@@ -51,9 +57,9 @@ class VPNfruit extends Module
 	{
 		if (file_exists("/etc/init.d/".$this->request->path)) {
 			exec("/etc/init.d/".$this->request->path." enable");
-			$this->response = "VPN Autorun Enabled";
+			$this->response = "VPN Autorun Enabled.";
 		} else {
-			$this->response = "Error enabling VPN (file not found)";
+			$this->response = "Error enabling VPN (file not found).";
 		}
 	}
 
@@ -61,9 +67,9 @@ class VPNfruit extends Module
 	{
 		if (file_exists("/etc/init.d/".$this->request->path)) {
 			exec("/etc/init.d/".$this->request->path." disable");
-			$this->response = "VPN Autorun Disabled";
+			$this->response = "VPN Autorun Disabled.";
 		} else {
-			$this->response = "Error disabling VPN (file not found)";
+			$this->response = "Error disabling VPN (file not found).";
 		}
 	}
 
@@ -87,5 +93,27 @@ class VPNfruit extends Module
 		}
 	}
 
+	private function getLiveStatus()
+	{
+		sleep(1);	//Delay added so clicking start/stop buttons run corresponding functions before the boot status is checked/updated.
+		exec("pgrep openvpn", $openvpnpid);
+		if(empty($openvpnpid)) {
+			$this->response = "OpenVPN is not running.";
+		} else {
+			$this->response = "OpenVPN is running (PID: ".$openvpnpid[0].").";
+		}
+	}
+
+	private function getBootStatus()
+	{
+		sleep(1);	//Delay added so clicking enable/disable buttons run corresponding functions before the boot status is checked/updated.
+		$filename = file_get_contents('VPNfruit.config');
+		exec("ls /etc/rc.d | grep ".$filename, $grepresult);
+		if(empty($grepresult)) {
+			$this->response = "Script (/etc/init.d/".$filename.") is disabled at boot.";
+		} else {
+			$this->response = "Script (/etc/init.d/".$filename.") is enabled at boot.";
+		}
+	}
 
 }
