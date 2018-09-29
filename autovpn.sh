@@ -51,27 +51,26 @@ start(){
 	echo
 	echo "Establishing iptables rules so pineapple connected client traffic uses the vpn."
 	##now set up iptables rules so traffic from clients connected to the p1neapple wifi run through tun0
-	#first rule:	-t nat	updates nat table (-t)
-	#		-A POSTROUTING	appends POSTROUTING chain to apply to packets just before they're sent out
+	#first rule:	-t nat			updates nat table (-t)
+	#		-A POSTROUTING		appends POSTROUTING chain to apply to packets just before they're sent out
 	#		-s 172.16.42.0/21	source ip (-s) to appy to packets that came from the pineapple gateway
-	#		-o tun0 output interface (-o) tun0 to apply to packets intended to be sent out through the tunnel
-	#		-j MASQUERADE   j for jump defines what to do to these packets. MASQUERADE changes the source of
-	#			the packets so that it seems thay came from the client device instead of the pineapple
+	#		-o tun0 		output interface (-o) tun0 to apply to packets intended to be sent out through the tunnel
+	#		-j MASQUERADE   	j for jump defines what to do to these packets. MASQUERADE changes the source of
+	#					the packets so that it seems thay came from the client device instead of the pineapple
 	iptables -t nat -A POSTROUTING -s 172.16.42.0/24 -o tun0 -j MASQUERADE
-	#second rule:	-A FORWARD	appends to FORWARD chain to apply to packets being forwarded by the pineapple
+	#second rule:	-A FORWARD		appends to FORWARD chain to apply to packets being forwarded by the pineapple
 	#		-s 172.16.42.0/21	source ip (-s) to appy to packets that came from the pineapple gateway
-	#		-o tun0	output interface (-o) tun0 to apply to packets intended to be sent out through the tunnel
-	#			-j ACCEPT	j for jump defines what to to with these specific packets - accept them
+	#		-o tun0			output interface (-o) tun0 to apply to packets intended to be sent out through the tunnel
+	#		-j ACCEPT		j for jump defines what to to with these specific packets - accept them
 	iptables -A FORWARD -s 172.16.42.0/24 -o tun0 -j ACCEPT
-	#third rule:	-A FORWARD	appends to FORWARD chain to apply to packets being forwarded by the pineapple
+	#third rule:	-A FORWARD		appends to FORWARD chain to apply to packets being forwarded by the pineapple
 	#		-d 172.16.42.0/24	destination ip (-d) to appy to packets going to the pineapple gateway
-	#		-m state	to apply to packets with a (m)atch of a specified propert (state)
-	#		--state ESTABLISHED,RELATED	the accepted state matches
-	#			ESTABLISHED meaning that the packet is associated with a connection which has seen 
-	#				packets in both directions
-	#			RELATED meaning that the packet is starting a new connection, but is associated with
-	#				an existing connection, such as an FTP data transfer, or an ICMP error
-	#		-j ACCEPT	j for jump defines what to to with these specific packets - accept them
+	#		-m state		to apply to packets with a (m)atch of a specified property (state)
+	#		--state			the accepted state matches:
+	#			ESTABLISHED 	meaning that the packet is associated with a connection which has seen	packets in both directions
+	#			RELATED 	meaning that the packet is starting a new connection, but is associated with an existing connection,
+	#					such as an FTP data transfer, or an ICMP error
+	#		-j ACCEPT		j for jump defines what to to with these specific packets - accept them
 	iptables -A FORWARD -d 172.16.42.0/24 -m state --state ESTABLISHED,RELATED -i tun0 -j ACCEPT
 	echo
 	echo -e "${GREEN}Success.${RESET}"
