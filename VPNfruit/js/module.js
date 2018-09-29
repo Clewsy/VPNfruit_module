@@ -26,7 +26,6 @@
 				$scope.message = response.error;
 			}
 		});
-
 	});
 
 	$scope.stopVPN = (function() {
@@ -41,7 +40,6 @@
 				$scope.message = response.error;
 			}
 		});
-
 	});
 
 	$scope.enableVPN = (function() {
@@ -56,7 +54,6 @@
 				$scope.message = response.error;
 			}
 		});
-
 	});
 
 	$scope.disableVPN = (function() {
@@ -71,7 +68,6 @@
 				$scope.message = response.error;
 			}
 		});
-
 	});
 
 	$scope.loadPath = (function() {
@@ -86,7 +82,6 @@
 				$scope.message = response.error;
 			}
 		});
-
 	});
 
 	$scope.savePath = (function() {
@@ -101,7 +96,6 @@
 				$scope.message = response.error;
 			}
 		});
-
 	});
 
 	$scope.getLiveStatus = (function() {
@@ -116,7 +110,6 @@
 				$scope.message = response.error;
 			}
 		});
-
 	});
 
 	$scope.getBootStatus = (function() {
@@ -132,7 +125,6 @@
 				$scope.message = response.error;
 			}
 		});
-
 	});
 
 	$scope.getIpinfoDump = (function() {
@@ -150,13 +142,12 @@
 				$scope.ipinfoDump_6 = response[6];
 				$scope.ipinfoDump_7 = response[7];
 				$scope.ipinfoDump_8 = response[8];
-				$scope.ipinfoDump_8 = response[9];
+				$scope.ipinfoDump_9 = response[9];
 			} else {
 				$scope.ipinfoDump = "error";
 				$scope.message = response.error;
 			}
 		});
-
 	});
 
 
