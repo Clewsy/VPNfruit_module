@@ -29,6 +29,9 @@ class VPNfruit extends Module
 			case 'getBootStatus' :
 				$this->getBootStatus();
 				break;
+			case 'getIpinfoDump' :
+				$this->getIpinfoDump();
+				break;
 		}
 	}
 
@@ -113,6 +116,16 @@ class VPNfruit extends Module
 			$this->response = "Script (/etc/init.d/".$filename.") is disabled at boot.";
 		} else {
 			$this->response = "Script (/etc/init.d/".$filename.") is enabled at boot.";
+		}
+	}
+
+	private function getIpinfoDump()
+	{
+		exec("curl ipinfo.io", $dump);
+		if(empty($dump)) {
+			$this->response = "Unable to curl ipinfo.io";
+		} else {
+			$this->response = $dump;
 		}
 	}
 

@@ -3,6 +3,16 @@
 	$scope.message = "";
 	$scope.liveStatus = "checking";
 	$scope.bootStatus = "checking";
+	$scope.ipinfoDump_0 = "update required"
+	$scope.ipinfoDump_1 = ""
+	$scope.ipinfoDump_2 = ""
+	$scope.ipinfoDump_3 = ""
+	$scope.ipinfoDump_4 = ""
+	$scope.ipinfoDump_5 = ""
+	$scope.ipinfoDump_6 = ""
+	$scope.ipinfoDump_7 = ""
+	$scope.ipinfoDump_8 = ""
+	$scope.ipinfoDump_9 = ""
 
 	$scope.startVPN = (function() {
 		$api.request({
@@ -124,6 +134,31 @@
 		});
 
 	});
+
+	$scope.getIpinfoDump = (function() {
+		$api.request({
+			module: 'VPNfruit',
+			action: 'getIpinfoDump',
+		}, function(response) {
+			if (response.error === undefined) {
+				$scope.ipinfoDump_0 = response[0];
+				$scope.ipinfoDump_1 = response[1];
+				$scope.ipinfoDump_2 = response[2];
+				$scope.ipinfoDump_3 = response[3];
+				$scope.ipinfoDump_4 = response[4];
+				$scope.ipinfoDump_5 = response[5];
+				$scope.ipinfoDump_6 = response[6];
+				$scope.ipinfoDump_7 = response[7];
+				$scope.ipinfoDump_8 = response[8];
+				$scope.ipinfoDump_8 = response[9];
+			} else {
+				$scope.ipinfoDump = "error";
+				$scope.message = response.error;
+			}
+		});
+
+	});
+
 
 	$scope.loadPath();
 	$scope.getLiveStatus();

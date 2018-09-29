@@ -23,7 +23,7 @@
 			Stop
 		</button>
 		<br />
-		<br /><p>Current live status:	{{ liveStatus }}
+		<br /><p>Current live status:	{{ liveStatus }}</p>
 	</div>
 
 	<div class="panel-heading">
@@ -37,8 +37,29 @@
 			Disable
 		</button>
 		<br />
-		<br /><p>Current boot status:	{{ bootStatus }}
+		<br /><p>Current boot status:	{{ bootStatus }}</p>
 	</div>
+
+	<div class="panel-heading">
+		<h3 class="panel-title">ipinfo.io output</h3>
+	</div>
+	<div class="panel-body">
+		<button class="btn btn-default" ng-click="getIpinfoDump();">
+			curl ipinfo.io
+		</button>
+		<br />
+		<br />{{ ipinfoDump_0 }}
+		<br />{{ ipinfoDump_1 }}
+		<br />{{ ipinfoDump_2 }}
+		<br />{{ ipinfoDump_3 }}
+		<br />{{ ipinfoDump_4 }}
+		<br />{{ ipinfoDump_5 }}
+		<br />{{ ipinfoDump_6 }}
+		<br />{{ ipinfoDump_7 }}
+		<br />{{ ipinfoDump_8 }}
+		<br />{{ ipinfoDump_9 }}
+	</div>
+
 
 <div class="well alert-warning" ng-show="message">
 	{{ message }}
