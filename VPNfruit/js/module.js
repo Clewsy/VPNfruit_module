@@ -3,7 +3,7 @@
 	$scope.message = "";
 	$scope.liveStatus = "checking";
 	$scope.bootStatus = "checking";
-	$scope.ipinfoDump_0 = "update required"
+	$scope.ipinfoDump_0 = "Refresh required"
 	$scope.ipinfoDump_1 = ""
 	$scope.ipinfoDump_2 = ""
 	$scope.ipinfoDump_3 = ""
